@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using WhereToEat.Services;
+using WhereToEat;
+using WhereToEat.ViewModel;
 
 namespace WhereToEat
 {
@@ -12,12 +15,15 @@ namespace WhereToEat
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
+
+            builder.Services.AddSingleton<RestaurantService>();
+            builder.Services.AddSingleton<RestaurantViewModel>();
+            builder.Services.AddSingleton<MainPage>();
 
             return builder.Build();
         }

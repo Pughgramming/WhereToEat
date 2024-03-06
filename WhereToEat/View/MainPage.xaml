@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WhereToEat.MainPage"
+             xmlns:model="clr-namespace:WhereToEat.Model"
+             xmlns:viewmodel="clr-namespace:WhereToEat.ViewModel"
+             x:DataType="viewmodel:RestaurantViewModel"
+             Title="{Binding Title}">
+    <Grid
+    ColumnDefinitions="*,*"
+    ColumnSpacing="5"
+    RowDefinitions="*,Auto"
+    RowSpacing="0">
+        <CollectionView
+        Grid.ColumnSpan="2"
+        ItemsSource="{Binding Restaurants}"
+        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Restaurant">
+                    <Grid Padding="10">
+                        <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                            <Grid Padding="0" ColumnDefinitions="125,*">
+                                <!--<Image Aspect="AspectFill" Source="{Binding Image}"
+                                   WidthRequest="125"
+                                   HeightRequest="125"/>-->
+                                <VerticalStackLayout
+                                VerticalOptions="Center"
+                                Grid.Column="1"
+                                Padding="10">
+                                    <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
+                                    <Label Style="{StaticResource MediumLabel}" Text="{Binding Cuisine}" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Get Restraunts" 
+            Command="{Binding GetMonkeysCommand}"
+            IsEnabled="{Binding IsNotBusy}"
+            Grid.Row="1"
+            Grid.Column="0"
+            Style="{StaticResource ButtonOutline}"
+            Margin="8">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="Scale"
+                            Value="1" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Scale"
+                            Value="0.8" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </Button>
+
+
+        <ActivityIndicator IsVisible="{Binding IsBusy}"
+                       IsRunning="{Binding IsBusy}"
+                       HorizontalOptions="Fill"
+                       VerticalOptions="Center"
+                       Color="{StaticResource Primary}"
+                       Grid.RowSpan="2"
+                       Grid.ColumnSpan="2"/>
+    </Grid>
+</ContentPage>
