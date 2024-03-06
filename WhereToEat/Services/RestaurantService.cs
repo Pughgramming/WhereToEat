@@ -19,7 +19,7 @@ namespace WhereToEat.Services
                 return restaurants;
 
             // Online
-            var response = await httpClient.GetAsync("https://gist.githubusercontent.com/Pughgramming/26ff47e01eae46a6ffc18ad589d46da9/raw/a9c1256ba507991a7dad514cfc721f6b9f24e147/restaurants.json");
+            var response = await httpClient.GetAsync("https://gist.githubusercontent.com/Pughgramming/26ff47e01eae46a6ffc18ad589d46da9/raw/05a542aa4baf246988a2c6b3d9a650352dfd969b/restaurants.json");
             if (response.IsSuccessStatusCode)
             {
                 restaurants = await response.Content.ReadFromJsonAsync(RestaurantContext.Default.ListRestaurant);
